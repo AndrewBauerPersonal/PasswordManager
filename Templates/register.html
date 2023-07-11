@@ -6,38 +6,76 @@
     <title>Registration</title>
     <style>
         body {
-            background-color: #333; /* Set the background color to a darker shade */
-            color: #fff; /* Set the text color to white */
-            font-family: Arial, sans-serif; /* Set the font family */
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
         }
+
         .container {
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
-            text-align: center; /* Center align the content */
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s ease-in-out;
         }
+
+        .container:hover {
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+
         h1 {
             margin-bottom: 20px;
         }
+
         input[type="text"],
         input[type="password"] {
             display: block;
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #fff;
+            background-color: transparent;
+            color: #fff;
+            border-radius: 4px;
+            transition: border-color 0.3s ease-in-out;
         }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4caf50;
+        }
+
         button {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #4caf50; /* Set the button background color */
-            color: #fff; /* Set the button text color */
+            background-color: #4caf50;
+            color: #fff;
             border: none;
             cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
         }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
         .error {
             color: red;
             margin-bottom: 10px;
+        }
+
+        a {
+            color: #4caf50;
+            text-decoration: underline;
+            transition: color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: #45a049;
         }
     </style>
 </head>

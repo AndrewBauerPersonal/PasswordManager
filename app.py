@@ -47,6 +47,29 @@ def home():
     session.pop('username', None)  # Clear the 'username' key from the session
     return render_template('homepage.html')
 
+
+
+@app.route('/api/saveCredentials', methods=['POST'])
+def save_credentials():
+    credentials = request.json
+    username = credentials.get('username')
+    password = credentials.get('password')
+
+    if username and password:
+        # Perform any additional validation or checks on the credentials
+        # Check if the username is unique or if the password meets certain complexity requirements
+
+        # Store the credentials securely in database or password manager
+        # Create a new Password object and save it to the database
+        new_password = Password(username=username, password=password)
+        db.session.add(new_password)
+        db.session.commit()
+
+        return jsonify({'message': 'Credentials saved successfully'})
+    else:
+        return jsonify({'message': 'Invalid credentials'})
+
+
 @app.route('/passwords')
 @login_required
 def password_manager():
@@ -80,11 +103,13 @@ def add_password():
 def generate_password():
     length = int(request.form.get('length'))
 
-    # Generate a random password
-    characters = string.ascii_letters + string.digits + string.punctuation
+    # Generate a random password with alphanumeric characters
+    characters = string.ascii_letters + string.digits
     generated_password = ''.join(random.choice(characters) for _ in range(length))
 
-    return jsonify({'password': generated_password})
+    return generated_password
+
+
 
 
 @app.route('/delete_password', methods=['POST'])
@@ -113,7 +138,8 @@ def login():
         session['username'] = username  # Set the 'username' key in the session
         return redirect(url_for('password_manager'))  # Redirect to the password manager page
     else:
-        return render_template('homepage.html', error='Invalid username or password.')
+        error = 'Invalid username or password.'
+        return render_template('homepage.html', error=error)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -142,6 +168,7 @@ def register():
 @login_required
 def logout():
     logout_user()
+    session.pop('username', None)  # Remove the 'username' key from the session
     return redirect('/')
 
 if __name__ == '__main__':
