@@ -43,10 +43,9 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 @app.route('/')
-def home():
-    session.pop('username', None)  # Clear the 'username' key from the session
+def startup():
+    session.pop('username', None)
     return render_template('homepage.html')
-
 
 
 @app.route('/api/saveCredentials', methods=['POST'])
@@ -127,7 +126,7 @@ def delete_password():
     else:
         return jsonify({'message': 'Password not found'})
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -138,8 +137,9 @@ def login():
         session['username'] = username  # Set the 'username' key in the session
         return redirect(url_for('password_manager'))  # Redirect to the password manager page
     else:
-        error = 'Invalid username or password.'
-        return render_template('homepage.html', error=error)
+        return render_template('homepage.html', error='Invalid username or password.')
+
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -169,7 +169,8 @@ def register():
 def logout():
     logout_user()
     session.pop('username', None)  # Remove the 'username' key from the session
-    return redirect('/')
+    return redirect('/login')  # Redirect to the login page instead of the startup page
+
 
 if __name__ == '__main__':
     with app.app_context():

