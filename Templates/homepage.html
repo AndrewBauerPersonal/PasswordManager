@@ -6,6 +6,8 @@
     <title>Password Manager</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css" /> 
+    <script src="popup.js"></script>
+    <script src="contentScript.js"></script>
     <style>
         body {
             background-color: #f5f5f5;
@@ -15,8 +17,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background-image: url("background-image.jpg")
         }
-
+    
         .container {
             max-width: 600px;
             margin: 40px;
@@ -27,29 +30,29 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease-in-out;
         }
-
+    
         .container:hover {
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         }
-
+    
         h1 {
             margin-bottom: 30px;
             color: #333;
             font-size: 24px;
             line-height: 1.5;
         }
-
+    
         h2 {
             margin-bottom: 20px;
             color: #555;
             font-size: 20px;
             line-height: 1.5;
         }
-
+    
         .login-form {
             margin-bottom: 20px;
         }
-
+    
         .login-form input[type="text"],
         .login-form input[type="password"] {
             display: block;
@@ -63,12 +66,12 @@
             background-color: #f0f0f0;
             color: #333;
         }
-
+    
         .login-form input[type="text"]:focus,
         .login-form input[type="password"]:focus {
             border-color: #999;
         }
-
+    
         .login-form button {
             display: block;
             margin: 0 auto;
@@ -81,11 +84,11 @@
             font-size: 16px;
             transition: background-color 0.3s ease-in-out;
         }
-
+    
         .login-form button:hover {
             background-color: #555;
         }
-
+    
         .register-link {
             display: block;
             margin: 0 auto;
@@ -94,52 +97,50 @@
             font-size: 16px;
             transition: color 0.3s ease-in-out;
         }
-
+    
         .register-link:hover {
             color: #00da00;
         }
-
+    
         .error-message {
             color: red;
             margin-top: 10px;
         }
-
+    
         @media (max-width: 600px) {
             .container {
                 max-width: 400px;
             }
-
+    
             h1 {
                 font-size: 20px;
             }
-
+    
             h2 {
                 font-size: 18px;
             }
-
+    
             .login-form input[type="text"],
             .login-form input[type="password"] {
-                font-size: 14px;
+                font-size: 28px;
             }
-
+    
             .login-form button {
                 font-size: 14px;
                 padding: 10px 20px;
             }
-
+    
             .register-link,
             .error-message {
                 font-size: 14px;
             }
         }
     </style>
-    <script src="popup.js"></script>
-    <script src="contentScript.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Password Manager</h1>
-        <h2>This is a place to store your passwords</h2>
+        <!-- <h2>This is a place to store your passwords</h2> -->
         <div class="login-form">
             <h2>Login</h2>
             <form action="/login" method="POST">

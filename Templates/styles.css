@@ -6,9 +6,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .container {
+}
+
+.container {
     max-width: 600px;
     margin: 40px;
     padding: 40px;
@@ -17,32 +17,32 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out;
-  }
-  
-  .container:hover {
+}
+
+.container:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  h1 {
+}
+
+h1 {
     margin-bottom: 30px;
     color: #333;
     font-size: 24px;
     line-height: 1.5;
-  }
-  
-  h2 {
+}
+
+h2 {
     margin-bottom: 20px;
     color: #555;
     font-size: 20px;
     line-height: 1.5;
-  }
-  
-  .login-form {
+}
+
+.login-form {
     margin-bottom: 20px;
-  }
-  
-  .login-form input[type="text"],
-  .login-form input[type="password"] {
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
     display: block;
     width: 100%;
     padding: 10px;
@@ -53,14 +53,14 @@ body {
     transition: border-color 0.3s ease-in-out;
     background-color: #f0f0f0;
     color: #333;
-  }
-  
-  .login-form input[type="text"]:focus,
-  .login-form input[type="password"]:focus {
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
     border-color: #999;
-  }
-  
-  .login-form button {
+}
+
+.login-form button {
     display: block;
     margin: 0 auto;
     padding: 12px 24px;
@@ -71,55 +71,55 @@ body {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease-in-out;
-  }
-  
-  .login-form button:hover {
+}
+
+.login-form button:hover {
     background-color: #555;
-  }
-  
-  .register-link {
+}
+
+.register-link {
     display: block;
     margin: 0 auto;
     margin-top: 20px;
     color: #006400;
     font-size: 16px;
     transition: color 0.3s ease-in-out;
-  }
-  
-  .register-link:hover {
+}
+
+.register-link:hover {
     color: #00da00;
-  }
-  
-  .error-message {
+}
+
+.error-message {
     color: red;
     margin-top: 10px;
-  }
-  
-  @media (max-width: 600px) {
+}
+
+@media (max-width: 600px) {
     .container {
-      max-width: 400px;
+        max-width: 400px;
     }
-  
+
     h1 {
-      font-size: 20px;
+        font-size: 20px;
     }
-  
+
     h2 {
-      font-size: 18px;
+        font-size: 18px;
     }
-  
+
     .login-form input[type="text"],
     .login-form input[type="password"] {
-      font-size: 14px;
+        font-size: 28px;
     }
-  
+
     .login-form button {
-      font-size: 14px;
-      padding: 10px 20px;
+        font-size: 14px;
+        padding: 10px 20px;
     }
-  
+
     .register-link,
     .error-message {
-      font-size: 14px;
+        font-size: 14px;
     }
-  }
+}

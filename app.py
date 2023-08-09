@@ -111,10 +111,11 @@ def generate_password():
 
 
 
-@app.route('/delete_password', methods=['POST'])
+@app.route('/delete_password', methods=['POST','DELETE'])
 @login_required
 def delete_password():
-    website = request.json.get('website')
+    data = request.json
+    website = data.get('website')
 
     user = User.query.get(str(session['username']))
     password = Password.query.filter_by(website=website, user_id=user.id).first()
