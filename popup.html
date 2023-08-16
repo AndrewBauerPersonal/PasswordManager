@@ -2,76 +2,17 @@
 <html>
 <head>
   <title>Password Manager</title>
-  <style>
-    body {
-      width: 300px;
-      font-family: Arial, sans-serif;
-      padding: 10px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    li {
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: #f1f1f1;
-      border-radius: 4px;
-    }
-
-    .website {
-      font-weight: bold;
-    }
-
-    .username {
-      color: #666;
-    }
-
-    .password {
-      font-size: 14px;
-      color: #999;
-    }
-  </style>
+  <link rel="stylesheet" href="popup.css">
   <script src="popup.js"></script>
 </head>
 <body>
-  <h1>Password Manager</h1>
-  <ul id="credentials-list">
-    <!-- Credentials will be dynamically added here -->
-    <p id="message">Credentials captured successfully!</p>
-  </ul>
+  <header>
+    <h1>Password Manager</h1>
+  </header>
+  <main>
+    <button id="getPasswords"></button>
+    <h2>You can access your password vault by clicking the button below:</h2>
+    <button id="openPasswordsPage">Open Passwords Page</button>
+  </main>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>Password Manager tool</title>
-  <style>
-    body {
-      width: 300px;
-      height: 200px;
-      font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    #message {
-      text-align: center;
-    }
-  </style>
-  <script src="popup.js"></script>
-</head>
-<body>
-  <h1>Password manager retrival</h1>
-  <p id="message">Credentials captured successfully!</p>
-</body>
-</html> -->

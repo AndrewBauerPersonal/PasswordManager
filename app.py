@@ -3,11 +3,12 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 import os
 import random
 import string
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')  # Specify the static URL path
 app.secret_key = 'secretkey'  # Set a secret key for session encryption
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'users.db')
 
@@ -22,7 +23,7 @@ class User(UserMixin, db.Model):
 
     def __init__(self, id, password):
         self.id = id
-        Bcrypt.generate_password_hash(password).decode('utf-8')  # Hash and salt the password
+        self.password = Bcrypt.generate_password_hash(password).decode('utf-8')
 
     @property
     def is_authenticated(self):
@@ -50,25 +51,25 @@ def startup():
     return render_template('homepage.html')
 
 
-# @app.route('/api/saveCredentials', methods=['POST'])
-# def save_credentials():
-#     credentials = request.json
-#     username = credentials.get('username')
-#     password = credentials.get('password')
+@app.route('/api/saveCredentials', methods=['POST'])
+def save_credentials():
+    credentials = request.json
+    username = credentials.get('username')
+    password = credentials.get('password')
 
-#     if username and password:
-#         # Perform any additional validation or checks on the credentials
-#         # Check if the username is unique or if the password meets certain complexity requirements
+    if username and password:
+        # Perform any additional validation or checks on the credentials
+        # Check if the username is unique or if the password meets certain complexity requirements
 
-#         # Store the credentials securely in database or password manager
-#         # Create a new Password object and save it to the database
-#         new_password = Password(username=username, password=password)
-#         db.session.add(new_password)
-#         db.session.commit()
+        # Store the credentials securely in database or password manager
+        # Create a new Password object and save it to the database
+        new_password = Password(username=username, password=password)
+        db.session.add(new_password)
+        db.session.commit()
 
-#         return jsonify({'message': 'Credentials saved successfully'})
-#     else:
-#         return jsonify({'message': 'Invalid credentials'})
+        return jsonify({'message': 'Credentials saved successfully'})
+    else:
+        return jsonify({'message': 'Invalid credentials'})
 
 
 @app.route('/passwords')
@@ -160,8 +161,7 @@ def register():
 
         # Automatically log in the newly registered user
         login_user(user)
-        session['username'] = username  # Set the 'username' key in the session
-
+        session['user_id'] = user.id  # Set the 'username' key in the session
         return redirect(url_for('password_manager'))  # Redirect to the password manager page
 
     else:

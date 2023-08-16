@@ -1,20 +1,33 @@
-// Popup script code
-document.addEventListener('DOMContentLoaded', function() {
-    const credentialsList = document.getElementById('credentials-list');
-  
-    // Send a message to the background script to retrieve the captured credentials
-    chrome.runtime.sendMessage({ type: 'getCredentials' }, function(response) {
-      const credentialsData = response.credentials;
-  
-      // Populate the credentials list
-      credentialsData.forEach(function(credentials) {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-          <span class="website">${credentials.website}</span><br>
-          <span class="username">${credentials.username}</span><br>
-          <span class="password">${credentials.password}</span>
-        `;
-        credentialsList.appendChild(listItem);
-      });
+// popup.js
+
+document.addEventListener("DOMContentLoaded", function () {
+  const getPasswordsButton = document.getElementById("getPasswords");
+  const passwordList = document.getElementById("passwordList");
+  const openPasswordsPageButton = document.getElementById('openPasswordsPage'); // Add this line
+
+  getPasswordsButton.addEventListener("click", function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0];
+      chrome.scripting.executeScript(
+        {
+          target: { tabId: activeTab.id },
+          function: extractPasswordsFromTable
+        },
+        function (results) {
+          const passwords = results[0].result;
+          passwordList.innerHTML = "";
+
+          passwords.forEach(password => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `Website: ${password.website}, Username: ${password.username}, Password: ${password.password}`;
+            passwordList.appendChild(listItem);
+          });
+        }
+      );
     });
   });
+  openPasswordsPageButton.addEventListener('click', function () {
+    // Open a new tab with the passwords page URL
+    chrome.tabs.create({ url: 'http://localhost:5000/passwords' });
+  });
+});

